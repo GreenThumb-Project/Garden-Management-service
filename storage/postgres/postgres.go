@@ -10,7 +10,7 @@ const (
 	port     = 5432
 	user     = "postgres"
 	dbname   = "Garden_Management_service"
-	password = "03212164"
+	password = "1918"
 )
 
 func ConnectDB() (*sql.DB, error) {

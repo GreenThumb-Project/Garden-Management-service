@@ -60,7 +60,7 @@ message UpdateGardenRequest{
     string id=1;
     string userId=2;
     string name=3;
-    string gardenType=4;
+    string type=4;
     float  area_sqm =5;
 }
 
@@ -92,7 +92,7 @@ message Garden{
     string id=1;
     string userId=2;
     string name=3;
-    string gardenType=4;
+    string type=4;
     float  area_sqm =5;
 }
 
