@@ -3,8 +3,8 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
-	pb "garden-managment-service/generated"
-	pkg "garden-managment-service/package"
+	pb "garden-managment-service/generated/gardenManagement"
+	pkg "garden-managment-service/pkg"
 )
 
 type GardenManagementRepo struct {
@@ -15,7 +15,7 @@ func NewGardenManagementRepo(db *sql.DB) *GardenManagementRepo {
 	return &GardenManagementRepo{DB: db}
 }
 
-func (g *GardenManagementRepo) CreateGarden(in *pb.CreateGardenRequest) (*pb.CreateGardenResponces, error) {
+func (g *GardenManagementRepo) CreateGarden(in *pb.CreateGardenRequest) (*pb.CreateGardenResponse, error) {
 	rows, err := g.DB.Exec(`
 		INSERT 
 		INTO 
@@ -33,20 +33,20 @@ func (g *GardenManagementRepo) CreateGarden(in *pb.CreateGardenRequest) (*pb.Cre
 		`, in.Id, in.UserId, in.Name, in.AreaSqm)
 
 	if err != nil {
-		return &pb.CreateGardenResponces{Success: false}, err
+		return &pb.CreateGardenResponse{Success: false}, err
 	}
 
 	rowsAffected, err := rows.RowsAffected()
 
 	if err != nil || rowsAffected == 0 {
-		return &pb.CreateGardenResponces{Success: false}, err
+		return &pb.CreateGardenResponse{Success: false}, err
 	}
 
-	return &pb.CreateGardenResponces{Success: true}, nil
-
+	return &pb.CreateGardenResponse{Success: true}, nil
+}
 
 func (g *GardenManagementRepo) ViewGarden(in *pb.ViewGardenRequest) (*pb.ViewGardenResponse, error) {
-	var garden pb.ViewGardenResponces
+	var garden pb.ViewGardenResponse
 	err := g.DB.QueryRow(`
 			SELECT
 				id,
@@ -63,7 +63,7 @@ func (g *GardenManagementRepo) ViewGarden(in *pb.ViewGardenRequest) (*pb.ViewGar
 
 }
 
-func (g *GardenManagementRepo) UpdateGarden(in *pb.UpdateGardenRequest) (*pb.UpdateGardenResponces, error) {
+func (g *GardenManagementRepo) UpdateGarden(in *pb.UpdateGardenRequest) (*pb.UpdateGardenResponse, error) {
 
 	params := make(map[string]interface{})
 	var query = "UPDATE gardens SET "
@@ -95,14 +95,14 @@ func (g *GardenManagementRepo) UpdateGarden(in *pb.UpdateGardenRequest) (*pb.Upd
 
 	rowsAffected, _ := res.RowsAffected()
 	if rowsAffected == 0 {
-		return &pb.UpdateGardenResponces{Success: false}, fmt.Errorf("no rows affected, user with id %s not found", in.Id)
+		return &pb.UpdateGardenResponse{Success: false}, fmt.Errorf("no rows affected, user with id %s not found", in.Id)
 	}
 
-	return &pb.UpdateGardenResponces{Success: true}, nil
+	return &pb.UpdateGardenResponse{Success: true}, nil
 
 }
 
-func (g *GardenManagementRepo) DeleteGarden(in *pb.DeleteGardenRequest) (*pb.DeleteGardenResponces, error) {
+func (g *GardenManagementRepo) DeleteGarden(in *pb.DeleteGardenRequest) (*pb.DeleteGardenResponse, error) {
 
 	rows, err := g.DB.Exec(`
 			UPDATE
@@ -114,19 +114,19 @@ func (g *GardenManagementRepo) DeleteGarden(in *pb.DeleteGardenRequest) (*pb.Del
 		`, in.Id)
 
 	if err != nil {
-		return &pb.DeleteGardenResponces{Success: false}, err
+		return &pb.DeleteGardenResponse{Success: false}, err
 	}
 
 	rowsAffected, err := rows.RowsAffected()
 
 	if err != nil || rowsAffected == 0 {
-		return &pb.DeleteGardenResponces{Success: false}, err
+		return &pb.DeleteGardenResponse{Success: false}, err
 	}
 
-	return &pb.DeleteGardenResponces{Success: true}, nil
+	return &pb.DeleteGardenResponse{Success: true}, nil
 }
 
-func (g *GardenManagementRepo) ViewUserGardens(in *pb.ViewUserGardensRequest) (*pb.ViewUserGardensResponces, error) {
+func (g *GardenManagementRepo) ViewUserGardens(in *pb.ViewUserGardensRequest) (*pb.ViewUserGardensResponse, error) {
 
 	rows, err := g.DB.Query(`
 			select 
@@ -156,5 +156,5 @@ func (g *GardenManagementRepo) ViewUserGardens(in *pb.ViewUserGardensRequest) (*
 		}
 		gardens = append(gardens, &garden)
 	}
-	return &pb.ViewUserGardensResponces{Gardens: gardens}, nil
+	return &pb.ViewUserGardensResponse{Gardens: gardens}, nil
 }
