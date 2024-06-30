@@ -11,7 +11,7 @@ func NewGardenManagementRepo(db *sql.DB) *GardenManagementRepo {
 }
 
 func (g *GardenManagementRepo) CreateGarden() (error) {
-
+	
 	return nil
 }
 
