@@ -1,31 +1,31 @@
 syntax="proto3";
 
-option go_package = "generated/";
+option go_package = "generated/gardenManagement";
 
 package gardenManagement;
 
 service gardenManagement{
-    rpc CreateGarden(CreateGardenRequest) returns (CreateGardenResponces);
+    rpc CreateGarden(CreateGardenRequest) returns (CreateGardenResponse );
 
-    rpc ViewGarden(ViewGardenRequest) returns (ViewGardenResponces);
+    rpc ViewGarden(ViewGardenRequest) returns (ViewGardenResponse);
 
-    rpc UpdateGarden(UpdateGardenRequest) returns (UpdateGardenResponces);
+    rpc UpdateGarden(UpdateGardenRequest) returns (UpdateGardenResponse);
 
-    rpc DeleteGarden(DeleteGardenRequest) returns (DeleteGardenResponces);
+    rpc DeleteGarden(DeleteGardenRequest) returns (DeleteGardenResponse);
 
-    rpc ViewUserGardens(ViewUserGardensRequest) returns (ViewUserGardensResponces);
+    rpc ViewUserGardens(ViewUserGardensRequest) returns (ViewUserGardensResponse);
 
-    rpc AddPlanttoGarden(AddPlanttoGardenRequest) returns (AddPlanttoGardenResponces);
+    rpc AddPlanttoGarden(AddPlanttoGardenRequest) returns (AddPlanttoGardenResponse);
 
-    rpc ViewGardenPlants(ViewGardenPlantsRequest) returns (ViewGardenPlantsResponces);
+    rpc ViewGardenPlants(ViewGardenPlantsRequest) returns (ViewGardenPlantsResponse);
 
-    rpc UpdatePlant(UpdatePlantRequest) returns (UpdatePlantResponces);
+    rpc UpdatePlant(UpdatePlantRequest) returns (UpdatePlantResponse);
 
-    rpc DeletePlant(DeletePlantRequest) returns (DeletePlantResponces);
+    rpc DeletePlant(DeletePlantRequest) returns (DeletePlantResponse);
 
-    rpc AddPlantCareLog(AddPlantCareLogResquest) returns (AddPlantCareLogResponces);
+    rpc AddPlantCareLog(AddPlantCareLogResquest) returns (AddPlantCareLogResponse);
 
-    rpc ViewPlantCareLogs(ViewPlantCareLogsRequest) returns (ViewPlantCareLogsResponces);
+    rpc ViewPlantCareLogs(ViewPlantCareLogsRequest) returns (ViewPlantCareLogsResponse);
 }
 
 // Yangi bog'ni yaratadi. Bog' haqida ma'lumotlarni qabul qiladi va yangi bog'ni ro'yxatga qo'shadi.
@@ -37,7 +37,7 @@ message CreateGardenRequest{
     float  area_sqm =4;
 }
 
-message CreateGardenResponces{
+message CreateGardenResponse {
     bool success=1;
 }
 
@@ -47,7 +47,7 @@ message ViewGardenRequest{
     string id=1;
 }
 
-message ViewGardenResponces{
+message ViewGardenResponse {
     string id=1;
     string userId=2;
     string name=3;
@@ -64,7 +64,7 @@ message UpdateGardenRequest{
     float  area_sqm =5;
 }
 
-message UpdateGardenResponces{
+message UpdateGardenResponse{
     bool success=1;
 }
 
@@ -74,7 +74,7 @@ message DeleteGardenRequest{
     string id=1;
 }
 
-message DeleteGardenResponces{
+message DeleteGardenResponse{
     bool success=1;
 }
 
@@ -84,7 +84,7 @@ message ViewUserGardensRequest{
     string userId=1;
 }
 
-message ViewUserGardensResponces{
+message ViewUserGardensResponse{
     repeated Garden gardens = 1;
 }
 
@@ -104,10 +104,10 @@ message AddPlanttoGardenRequest{
     string species=3;
     int32  quantity=4;
     string plantingDate=5;
-    string plantStatus=6;
+    string Status=6;
 }
 
-message AddPlanttoGardenResponces{
+message AddPlanttoGardenResponse {
     bool success=1;
 }
 
@@ -117,7 +117,7 @@ message ViewGardenPlantsRequest{
     string gardenId=1;
 }
 
-message ViewGardenPlantsResponces{
+message ViewGardenPlantsResponse {
     repeated Plant plants=1;
 }
 
@@ -127,7 +127,7 @@ message Plant{
     string species=3;
     int32  quantity=4;
     string plantingDate=5;
-    string plantStatus=6;
+    string Status=6;
 }
 
 // Berilgan o'simlik identifikatori bo'yicha o'simlikni yangilaydi. O'simlik haqida ma'lumotlarni yangilash uchun ishlatiladi.
@@ -138,10 +138,10 @@ message UpdatePlantRequest{
     string species=3;
     int32  quantity=4;
     string plantingDate=5;
-    string plantStatus=6;
+    string Status=6;
 }
 
-message UpdatePlantResponces{
+message UpdatePlantResponse {
     bool success=1;
 }
 
@@ -150,7 +150,7 @@ message DeletePlantRequest{
     string id=1;
 }
 
-message DeletePlantResponces{
+message DeletePlantResponse {
     bool success=1;
 }
 
@@ -158,28 +158,28 @@ message DeletePlantResponces{
 
 message AddPlantCareLogResquest{
     string id =1;
-    string palntId=2;
+    string plantId=2;
     string action=3;
     string notes=4;
 }
 
-message AddPlantCareLogResponces{
+message AddPlantCareLogResponse {
     bool success=1;
 }
 
 // Berilgan o'simlik identifikatori bo'yicha barcha parvarish yozuvlarini qaytaradi. O'simlikning parvarish tarixi haqida ma'lumot beradi.
 
 message ViewPlantCareLogsRequest{
-    string pslantId=1;
+    string plantId=1;
 }
 
-message ViewPlantCareLogsResponces{
-    repeated CoreLog coreLogs=1;
+message ViewPlantCareLogsResponse {
+    repeated CareLog coreLogs=1;
 }
 
-message CoreLog{
+message CareLog{
     string id =1;
-    string palntId=2;
+    string plantId=2;
     string action=3;
     string notes=4;
 }

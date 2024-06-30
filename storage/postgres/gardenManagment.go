@@ -44,9 +44,8 @@ func (g *GardenManagementRepo) CreateGarden(in *pb.CreateGardenRequest) (*pb.Cre
 
 	return &pb.CreateGardenResponces{Success: true}, nil
 
-}
 
-func (g *GardenManagementRepo) ViewGarden(in *pb.ViewGardenRequest) (*pb.ViewGardenResponces, error) {
+func (g *GardenManagementRepo) ViewGarden(in *pb.ViewGardenRequest) (*pb.ViewGardenResponse, error) {
 	var garden pb.ViewGardenResponces
 	err := g.DB.QueryRow(`
 			SELECT
