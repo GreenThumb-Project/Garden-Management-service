@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: protosGardenManagement.proto
 
-package generated
+package gardenManagement
 
 import (
 	context "context"
@@ -22,17 +22,17 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GardenManagementClient interface {
-	CreateGarden(ctx context.Context, in *CreateGardenRequest, opts ...grpc.CallOption) (*CreateGardenResponces, error)
-	ViewGarden(ctx context.Context, in *ViewGardenRequest, opts ...grpc.CallOption) (*ViewGardenResponces, error)
-	UpdateGarden(ctx context.Context, in *UpdateGardenRequest, opts ...grpc.CallOption) (*UpdateGardenResponces, error)
-	DeleteGarden(ctx context.Context, in *DeleteGardenRequest, opts ...grpc.CallOption) (*DeleteGardenResponces, error)
-	ViewUserGardens(ctx context.Context, in *ViewUserGardensRequest, opts ...grpc.CallOption) (*ViewUserGardensResponces, error)
-	AddPlanttoGarden(ctx context.Context, in *AddPlanttoGardenRequest, opts ...grpc.CallOption) (*AddPlanttoGardenResponces, error)
-	ViewGardenPlants(ctx context.Context, in *ViewGardenPlantsRequest, opts ...grpc.CallOption) (*ViewGardenPlantsResponces, error)
-	UpdatePlant(ctx context.Context, in *UpdatePlantRequest, opts ...grpc.CallOption) (*UpdatePlantResponces, error)
-	DeletePlant(ctx context.Context, in *DeletePlantRequest, opts ...grpc.CallOption) (*DeletePlantResponces, error)
-	AddPlantCareLog(ctx context.Context, in *AddPlantCareLogResquest, opts ...grpc.CallOption) (*AddPlantCareLogResponces, error)
-	ViewPlantCareLogs(ctx context.Context, in *ViewPlantCareLogsRequest, opts ...grpc.CallOption) (*ViewPlantCareLogsResponces, error)
+	CreateGarden(ctx context.Context, in *CreateGardenRequest, opts ...grpc.CallOption) (*CreateGardenResponse, error)
+	ViewGarden(ctx context.Context, in *ViewGardenRequest, opts ...grpc.CallOption) (*ViewGardenResponse, error)
+	UpdateGarden(ctx context.Context, in *UpdateGardenRequest, opts ...grpc.CallOption) (*UpdateGardenResponse, error)
+	DeleteGarden(ctx context.Context, in *DeleteGardenRequest, opts ...grpc.CallOption) (*DeleteGardenResponse, error)
+	ViewUserGardens(ctx context.Context, in *ViewUserGardensRequest, opts ...grpc.CallOption) (*ViewUserGardensResponse, error)
+	AddPlanttoGarden(ctx context.Context, in *AddPlanttoGardenRequest, opts ...grpc.CallOption) (*AddPlanttoGardenResponse, error)
+	ViewGardenPlants(ctx context.Context, in *ViewGardenPlantsRequest, opts ...grpc.CallOption) (*ViewGardenPlantsResponse, error)
+	UpdatePlant(ctx context.Context, in *UpdatePlantRequest, opts ...grpc.CallOption) (*UpdatePlantResponse, error)
+	DeletePlant(ctx context.Context, in *DeletePlantRequest, opts ...grpc.CallOption) (*DeletePlantResponse, error)
+	AddPlantCareLog(ctx context.Context, in *AddPlantCareLogResquest, opts ...grpc.CallOption) (*AddPlantCareLogResponse, error)
+	ViewPlantCareLogs(ctx context.Context, in *ViewPlantCareLogsRequest, opts ...grpc.CallOption) (*ViewPlantCareLogsResponse, error)
 }
 
 type gardenManagementClient struct {
@@ -43,8 +43,8 @@ func NewGardenManagementClient(cc grpc.ClientConnInterface) GardenManagementClie
 	return &gardenManagementClient{cc}
 }
 
-func (c *gardenManagementClient) CreateGarden(ctx context.Context, in *CreateGardenRequest, opts ...grpc.CallOption) (*CreateGardenResponces, error) {
-	out := new(CreateGardenResponces)
+func (c *gardenManagementClient) CreateGarden(ctx context.Context, in *CreateGardenRequest, opts ...grpc.CallOption) (*CreateGardenResponse, error) {
+	out := new(CreateGardenResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/CreateGarden", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func (c *gardenManagementClient) CreateGarden(ctx context.Context, in *CreateGar
 	return out, nil
 }
 
-func (c *gardenManagementClient) ViewGarden(ctx context.Context, in *ViewGardenRequest, opts ...grpc.CallOption) (*ViewGardenResponces, error) {
-	out := new(ViewGardenResponces)
+func (c *gardenManagementClient) ViewGarden(ctx context.Context, in *ViewGardenRequest, opts ...grpc.CallOption) (*ViewGardenResponse, error) {
+	out := new(ViewGardenResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/ViewGarden", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (c *gardenManagementClient) ViewGarden(ctx context.Context, in *ViewGardenR
 	return out, nil
 }
 
-func (c *gardenManagementClient) UpdateGarden(ctx context.Context, in *UpdateGardenRequest, opts ...grpc.CallOption) (*UpdateGardenResponces, error) {
-	out := new(UpdateGardenResponces)
+func (c *gardenManagementClient) UpdateGarden(ctx context.Context, in *UpdateGardenRequest, opts ...grpc.CallOption) (*UpdateGardenResponse, error) {
+	out := new(UpdateGardenResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/UpdateGarden", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -70,8 +70,8 @@ func (c *gardenManagementClient) UpdateGarden(ctx context.Context, in *UpdateGar
 	return out, nil
 }
 
-func (c *gardenManagementClient) DeleteGarden(ctx context.Context, in *DeleteGardenRequest, opts ...grpc.CallOption) (*DeleteGardenResponces, error) {
-	out := new(DeleteGardenResponces)
+func (c *gardenManagementClient) DeleteGarden(ctx context.Context, in *DeleteGardenRequest, opts ...grpc.CallOption) (*DeleteGardenResponse, error) {
+	out := new(DeleteGardenResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/DeleteGarden", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -79,8 +79,8 @@ func (c *gardenManagementClient) DeleteGarden(ctx context.Context, in *DeleteGar
 	return out, nil
 }
 
-func (c *gardenManagementClient) ViewUserGardens(ctx context.Context, in *ViewUserGardensRequest, opts ...grpc.CallOption) (*ViewUserGardensResponces, error) {
-	out := new(ViewUserGardensResponces)
+func (c *gardenManagementClient) ViewUserGardens(ctx context.Context, in *ViewUserGardensRequest, opts ...grpc.CallOption) (*ViewUserGardensResponse, error) {
+	out := new(ViewUserGardensResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/ViewUserGardens", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -88,8 +88,8 @@ func (c *gardenManagementClient) ViewUserGardens(ctx context.Context, in *ViewUs
 	return out, nil
 }
 
-func (c *gardenManagementClient) AddPlanttoGarden(ctx context.Context, in *AddPlanttoGardenRequest, opts ...grpc.CallOption) (*AddPlanttoGardenResponces, error) {
-	out := new(AddPlanttoGardenResponces)
+func (c *gardenManagementClient) AddPlanttoGarden(ctx context.Context, in *AddPlanttoGardenRequest, opts ...grpc.CallOption) (*AddPlanttoGardenResponse, error) {
+	out := new(AddPlanttoGardenResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/AddPlanttoGarden", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -97,8 +97,8 @@ func (c *gardenManagementClient) AddPlanttoGarden(ctx context.Context, in *AddPl
 	return out, nil
 }
 
-func (c *gardenManagementClient) ViewGardenPlants(ctx context.Context, in *ViewGardenPlantsRequest, opts ...grpc.CallOption) (*ViewGardenPlantsResponces, error) {
-	out := new(ViewGardenPlantsResponces)
+func (c *gardenManagementClient) ViewGardenPlants(ctx context.Context, in *ViewGardenPlantsRequest, opts ...grpc.CallOption) (*ViewGardenPlantsResponse, error) {
+	out := new(ViewGardenPlantsResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/ViewGardenPlants", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -106,8 +106,8 @@ func (c *gardenManagementClient) ViewGardenPlants(ctx context.Context, in *ViewG
 	return out, nil
 }
 
-func (c *gardenManagementClient) UpdatePlant(ctx context.Context, in *UpdatePlantRequest, opts ...grpc.CallOption) (*UpdatePlantResponces, error) {
-	out := new(UpdatePlantResponces)
+func (c *gardenManagementClient) UpdatePlant(ctx context.Context, in *UpdatePlantRequest, opts ...grpc.CallOption) (*UpdatePlantResponse, error) {
+	out := new(UpdatePlantResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/UpdatePlant", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -115,8 +115,8 @@ func (c *gardenManagementClient) UpdatePlant(ctx context.Context, in *UpdatePlan
 	return out, nil
 }
 
-func (c *gardenManagementClient) DeletePlant(ctx context.Context, in *DeletePlantRequest, opts ...grpc.CallOption) (*DeletePlantResponces, error) {
-	out := new(DeletePlantResponces)
+func (c *gardenManagementClient) DeletePlant(ctx context.Context, in *DeletePlantRequest, opts ...grpc.CallOption) (*DeletePlantResponse, error) {
+	out := new(DeletePlantResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/DeletePlant", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -124,8 +124,8 @@ func (c *gardenManagementClient) DeletePlant(ctx context.Context, in *DeletePlan
 	return out, nil
 }
 
-func (c *gardenManagementClient) AddPlantCareLog(ctx context.Context, in *AddPlantCareLogResquest, opts ...grpc.CallOption) (*AddPlantCareLogResponces, error) {
-	out := new(AddPlantCareLogResponces)
+func (c *gardenManagementClient) AddPlantCareLog(ctx context.Context, in *AddPlantCareLogResquest, opts ...grpc.CallOption) (*AddPlantCareLogResponse, error) {
+	out := new(AddPlantCareLogResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/AddPlantCareLog", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -133,8 +133,8 @@ func (c *gardenManagementClient) AddPlantCareLog(ctx context.Context, in *AddPla
 	return out, nil
 }
 
-func (c *gardenManagementClient) ViewPlantCareLogs(ctx context.Context, in *ViewPlantCareLogsRequest, opts ...grpc.CallOption) (*ViewPlantCareLogsResponces, error) {
-	out := new(ViewPlantCareLogsResponces)
+func (c *gardenManagementClient) ViewPlantCareLogs(ctx context.Context, in *ViewPlantCareLogsRequest, opts ...grpc.CallOption) (*ViewPlantCareLogsResponse, error) {
+	out := new(ViewPlantCareLogsResponse)
 	err := c.cc.Invoke(ctx, "/gardenManagement.gardenManagement/ViewPlantCareLogs", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -146,17 +146,17 @@ func (c *gardenManagementClient) ViewPlantCareLogs(ctx context.Context, in *View
 // All implementations must embed UnimplementedGardenManagementServer
 // for forward compatibility
 type GardenManagementServer interface {
-	CreateGarden(context.Context, *CreateGardenRequest) (*CreateGardenResponces, error)
-	ViewGarden(context.Context, *ViewGardenRequest) (*ViewGardenResponces, error)
-	UpdateGarden(context.Context, *UpdateGardenRequest) (*UpdateGardenResponces, error)
-	DeleteGarden(context.Context, *DeleteGardenRequest) (*DeleteGardenResponces, error)
-	ViewUserGardens(context.Context, *ViewUserGardensRequest) (*ViewUserGardensResponces, error)
-	AddPlanttoGarden(context.Context, *AddPlanttoGardenRequest) (*AddPlanttoGardenResponces, error)
-	ViewGardenPlants(context.Context, *ViewGardenPlantsRequest) (*ViewGardenPlantsResponces, error)
-	UpdatePlant(context.Context, *UpdatePlantRequest) (*UpdatePlantResponces, error)
-	DeletePlant(context.Context, *DeletePlantRequest) (*DeletePlantResponces, error)
-	AddPlantCareLog(context.Context, *AddPlantCareLogResquest) (*AddPlantCareLogResponces, error)
-	ViewPlantCareLogs(context.Context, *ViewPlantCareLogsRequest) (*ViewPlantCareLogsResponces, error)
+	CreateGarden(context.Context, *CreateGardenRequest) (*CreateGardenResponse, error)
+	ViewGarden(context.Context, *ViewGardenRequest) (*ViewGardenResponse, error)
+	UpdateGarden(context.Context, *UpdateGardenRequest) (*UpdateGardenResponse, error)
+	DeleteGarden(context.Context, *DeleteGardenRequest) (*DeleteGardenResponse, error)
+	ViewUserGardens(context.Context, *ViewUserGardensRequest) (*ViewUserGardensResponse, error)
+	AddPlanttoGarden(context.Context, *AddPlanttoGardenRequest) (*AddPlanttoGardenResponse, error)
+	ViewGardenPlants(context.Context, *ViewGardenPlantsRequest) (*ViewGardenPlantsResponse, error)
+	UpdatePlant(context.Context, *UpdatePlantRequest) (*UpdatePlantResponse, error)
+	DeletePlant(context.Context, *DeletePlantRequest) (*DeletePlantResponse, error)
+	AddPlantCareLog(context.Context, *AddPlantCareLogResquest) (*AddPlantCareLogResponse, error)
+	ViewPlantCareLogs(context.Context, *ViewPlantCareLogsRequest) (*ViewPlantCareLogsResponse, error)
 	mustEmbedUnimplementedGardenManagementServer()
 }
 
@@ -164,37 +164,37 @@ type GardenManagementServer interface {
 type UnimplementedGardenManagementServer struct {
 }
 
-func (UnimplementedGardenManagementServer) CreateGarden(context.Context, *CreateGardenRequest) (*CreateGardenResponces, error) {
+func (UnimplementedGardenManagementServer) CreateGarden(context.Context, *CreateGardenRequest) (*CreateGardenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGarden not implemented")
 }
-func (UnimplementedGardenManagementServer) ViewGarden(context.Context, *ViewGardenRequest) (*ViewGardenResponces, error) {
+func (UnimplementedGardenManagementServer) ViewGarden(context.Context, *ViewGardenRequest) (*ViewGardenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ViewGarden not implemented")
 }
-func (UnimplementedGardenManagementServer) UpdateGarden(context.Context, *UpdateGardenRequest) (*UpdateGardenResponces, error) {
+func (UnimplementedGardenManagementServer) UpdateGarden(context.Context, *UpdateGardenRequest) (*UpdateGardenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateGarden not implemented")
 }
-func (UnimplementedGardenManagementServer) DeleteGarden(context.Context, *DeleteGardenRequest) (*DeleteGardenResponces, error) {
+func (UnimplementedGardenManagementServer) DeleteGarden(context.Context, *DeleteGardenRequest) (*DeleteGardenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteGarden not implemented")
 }
-func (UnimplementedGardenManagementServer) ViewUserGardens(context.Context, *ViewUserGardensRequest) (*ViewUserGardensResponces, error) {
+func (UnimplementedGardenManagementServer) ViewUserGardens(context.Context, *ViewUserGardensRequest) (*ViewUserGardensResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ViewUserGardens not implemented")
 }
-func (UnimplementedGardenManagementServer) AddPlanttoGarden(context.Context, *AddPlanttoGardenRequest) (*AddPlanttoGardenResponces, error) {
+func (UnimplementedGardenManagementServer) AddPlanttoGarden(context.Context, *AddPlanttoGardenRequest) (*AddPlanttoGardenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddPlanttoGarden not implemented")
 }
-func (UnimplementedGardenManagementServer) ViewGardenPlants(context.Context, *ViewGardenPlantsRequest) (*ViewGardenPlantsResponces, error) {
+func (UnimplementedGardenManagementServer) ViewGardenPlants(context.Context, *ViewGardenPlantsRequest) (*ViewGardenPlantsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ViewGardenPlants not implemented")
 }
-func (UnimplementedGardenManagementServer) UpdatePlant(context.Context, *UpdatePlantRequest) (*UpdatePlantResponces, error) {
+func (UnimplementedGardenManagementServer) UpdatePlant(context.Context, *UpdatePlantRequest) (*UpdatePlantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePlant not implemented")
 }
-func (UnimplementedGardenManagementServer) DeletePlant(context.Context, *DeletePlantRequest) (*DeletePlantResponces, error) {
+func (UnimplementedGardenManagementServer) DeletePlant(context.Context, *DeletePlantRequest) (*DeletePlantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePlant not implemented")
 }
-func (UnimplementedGardenManagementServer) AddPlantCareLog(context.Context, *AddPlantCareLogResquest) (*AddPlantCareLogResponces, error) {
+func (UnimplementedGardenManagementServer) AddPlantCareLog(context.Context, *AddPlantCareLogResquest) (*AddPlantCareLogResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddPlantCareLog not implemented")
 }
-func (UnimplementedGardenManagementServer) ViewPlantCareLogs(context.Context, *ViewPlantCareLogsRequest) (*ViewPlantCareLogsResponces, error) {
+func (UnimplementedGardenManagementServer) ViewPlantCareLogs(context.Context, *ViewPlantCareLogsRequest) (*ViewPlantCareLogsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ViewPlantCareLogs not implemented")
 }
 func (UnimplementedGardenManagementServer) mustEmbedUnimplementedGardenManagementServer() {}
