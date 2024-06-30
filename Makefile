@@ -1,5 +1,5 @@
 CURRENT_DIR=$(shell pwd)
-DBURL := postgres://postgres:03212164@localhost:5432/garden_management_service?sslmode=disable
+DBURL := postgres://postgres:1918@localhost:5432/garden_management_service?sslmode=disable
 
 proto-gen:
 	./scripts/gen-proto.sh ${CURRENT_DIR}
