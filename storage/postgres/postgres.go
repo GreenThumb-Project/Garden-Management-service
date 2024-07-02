@@ -3,19 +3,13 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
-)
-
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	dbname   = "Garden_Management_service"
-	password = "1918"
+	"garden-managment-service/config"
 )
 
 func ConnectDB() (*sql.DB, error) {
+	cfg := config.Load()
 	conn := fmt.Sprintf("localhost=%s port=%d user=%s dbname=%s password=%s ?sslmode=disable",
-		host, port, user, dbname, password)
+		cfg.DB_HOST, cfg.DB_PORT, cfg.DB_USER, cfg.DB_NAME, cfg.DB_PASSWORD)
 
 	db, err := sql.Open("postgres", conn)
 	if err != nil {
