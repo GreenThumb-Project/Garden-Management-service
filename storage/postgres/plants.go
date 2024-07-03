@@ -15,7 +15,7 @@ func NewGardenPlantManagementRepo(db *sql.DB) *GardenPlantManagementRepo {
 	return &GardenPlantManagementRepo{DB: db}
 }
 
-func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenRequest) (pb.AddPlanttoGardenResponse, error) {
+func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenRequest) (*pb.AddPlanttoGardenResponse, error) {
 	_, err := p.DB.Exec(`
 		INSERT INTO plants (
 			id,
@@ -36,10 +36,10 @@ func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenR
 	`, plant.Id, plant.GardenId, plant.Species, plant.Quantity, plant.PlantingDate, plant.Status)
 
 	if err != nil {
-		return pb.AddPlanttoGardenResponse{Success: false}, err
+		return &pb.AddPlanttoGardenResponse{Success: false}, err
 	}
 
-	return pb.AddPlanttoGardenResponse{Success: true}, nil
+	return &pb.AddPlanttoGardenResponse{Success: true}, nil
 }
 
 func (p *GardenPlantManagementRepo) ViewGardenPlants(gardenID string) (*pb.ViewGardenPlantsResponse, error) {
@@ -56,7 +56,7 @@ func (p *GardenPlantManagementRepo) ViewGardenPlants(gardenID string) (*pb.ViewG
 		FROM
 			plants as p
 		INNER JOIN
-			garden as g ON p.garden_id = g.id
+			gardens as g ON p.garden_id = g.id
 		WHERE
 			g.deleted_at = 0 and p.deleted_at = 0 and g.id = $1
 	`, gardenID)
@@ -114,7 +114,7 @@ func (p *GardenPlantManagementRepo) UpdatePlant(plant *pb.UpdatePlantRequest) (*
 		FROM 
 			gardens as g 
 		WHERE 
-			p.garden_id = g.id and g.deleted_at = 0 AND pdeleted_at = 0 AND p.id = :id
+			p.garden_id = g.id and g.deleted_at = 0 AND p.deleted_at = 0 AND p.id = :id
 		`
 
 	params["id"] = plant.Id
@@ -134,15 +134,13 @@ func (p *GardenPlantManagementRepo) UpdatePlant(plant *pb.UpdatePlantRequest) (*
 }
 func (p *GardenPlantManagementRepo) DeletePlant(id string) (*pb.DeletePlantResponse, error) {
 	res, err := p.DB.Exec(`
-		UPDATE 
-			plants AS p
-		SET
-			p.deleted_at = DATE_PART('epoch', CURRENT_TIMETAMP)::INT
-		FROM
-			gardens AS g
-		WHERE 
-			g.id = p.garden_id AND g.deleted_at = 0 AND
-			p.deleted_at AND p.id = $1
+	UPDATE plants AS p
+SET deleted_at = EXTRACT(epoch FROM CURRENT_TIMESTAMP)::INT
+FROM gardens AS g
+WHERE g.id = p.garden_id 
+  AND g.deleted_at = 0 
+  AND p.deleted_at = 0 
+  AND p.id = $1
 	`, id)
 
 	if err != nil {
@@ -180,23 +178,23 @@ func (p *GardenPlantManagementRepo) AddPlantCareLog(careLog *pb.AddPlantCareLogR
 	}
 	return &pb.AddPlantCareLogResponse{Success: true}, nil
 }
-func (p *GardenPlantManagementRepo) ViewPlantCareLogs(plantID string) (*pb.ViewPlantCareLogsResponse,error) {
+func (p *GardenPlantManagementRepo) ViewPlantCareLogs(plantID string) (*pb.ViewPlantCareLogsResponse, error) {
 	var carLogs []*pb.CareLog
 	rows, err := p.DB.Query(`
 		SELECT
-			id,
+			c.id,
 			plant_id,
-			action,
-			notice
+			c.action,
+			c.notes
 		FROM
 			care_logs AS c
-		INNEER JOIN
+		INNER JOIN
 			plants AS p ON c.plant_id = p.id
 		INNER JOIN
-			garden AS g ON p.garden_id = g.id
+			gardens AS g ON p.garden_id = g.id
 		WHERE
-			g.deleted_at = 0 AND p.deleted_at = 0 AND c.deleted_at = 0
-	`)
+			g.deleted_at = 0 AND p.deleted_at = 0 and p.id=$1
+	`, plantID)
 
 	if err != nil {
 		return nil, err

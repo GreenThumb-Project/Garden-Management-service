@@ -50,7 +50,7 @@ func (g *GardenManagementRepo) ViewGarden(in *pb.ViewGardenRequest) (*pb.ViewGar
 	err := g.DB.QueryRow(`
 			SELECT
 				id,
-				userId,
+				user_id,
 				name,
 				area_sqm
 			FROM gardens
@@ -107,8 +107,8 @@ func (g *GardenManagementRepo) DeleteGarden(in *pb.DeleteGardenRequest) (*pb.Del
 	rows, err := g.DB.Exec(`
 			UPDATE
 				gardens
-			SET de
-				deleted_ad=date_part('epoch', current_timestamp)::INT 
+			SET
+				deleted_at=date_part('epoch', current_timestamp)::INT 
 			WHERE
 				id=$1
 		`, in.Id)
@@ -138,7 +138,8 @@ func (g *GardenManagementRepo) ViewUserGardens(in *pb.ViewUserGardensRequest) (*
 			FROM
 				gardens
 			WHERE
-				user_id=$1
+				user_id=$1 and
+				deleted_at=0
 			`, in.UserId)
 
 	if err != nil {
