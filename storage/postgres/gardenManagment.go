@@ -21,7 +21,7 @@ func (g *GardenManagementRepo) CreateGarden(in *pb.CreateGardenRequest) (*pb.Cre
 		INTO 
 		gardens(
 			id,
-			userId,
+			user_id,
 			name,
 			area_sqm	
 		)
