@@ -15,7 +15,7 @@ func NewGardenPlantManagementRepo(db *sql.DB) *GardenPlantManagementRepo {
 	return &GardenPlantManagementRepo{DB: db}
 }
 
-func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenRequest) (pb.AddPlanttoGardenResponse, error) {
+func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenRequest) (*pb.AddPlanttoGardenResponse, error) {
 	_, err := p.DB.Exec(`
 		INSERT INTO plants (
 			id,
@@ -36,10 +36,10 @@ func (p *GardenPlantManagementRepo) AddPlanttoGarden(plant *pb.AddPlanttoGardenR
 	`, plant.Id, plant.GardenId, plant.Species, plant.Quantity, plant.PlantingDate, plant.Status)
 
 	if err != nil {
-		return pb.AddPlanttoGardenResponse{Success: false}, err
+		return &pb.AddPlanttoGardenResponse{Success: false}, err
 	}
 
-	return pb.AddPlanttoGardenResponse{Success: true}, nil
+	return &pb.AddPlanttoGardenResponse{Success: true}, nil
 }
 
 func (p *GardenPlantManagementRepo) ViewGardenPlants(gardenID string) (*pb.ViewGardenPlantsResponse, error) {
@@ -180,7 +180,7 @@ func (p *GardenPlantManagementRepo) AddPlantCareLog(careLog *pb.AddPlantCareLogR
 	}
 	return &pb.AddPlantCareLogResponse{Success: true}, nil
 }
-func (p *GardenPlantManagementRepo) ViewPlantCareLogs(plantID string) (*pb.ViewPlantCareLogsResponse,error) {
+func (p *GardenPlantManagementRepo) ViewPlantCareLogs(plantID string) (*pb.ViewPlantCareLogsResponse, error) {
 	var carLogs []*pb.CareLog
 	rows, err := p.DB.Query(`
 		SELECT

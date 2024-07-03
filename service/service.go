@@ -69,7 +69,7 @@ func (s *GardenManagementServer) AddPlanttoGarden(ctx context.Context, in *pb.Ad
 		return nil, err
 	}
 
-	return &resp, nil
+	return resp, nil
 }
 
 func (s *GardenManagementServer) ViewGardenPlants(ctx context.Context, in *pb.ViewGardenPlantsRequest) (*pb.ViewGardenPlantsResponse, error) {
