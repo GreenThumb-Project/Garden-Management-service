@@ -30,7 +30,7 @@ func Load() Config {
 	config.DB_HOST = cast.ToString(coalesce("DB_HOST", "localhost"))
 	config.DB_PORT = cast.ToInt(coalesce("DB_PORT", 5432))
 	config.DB_USER = cast.ToString(coalesce("DB_USER", "postgres"))
-	config.DB_NAME = cast.ToString(coalesce("DB_NAME", "postgres"))
+	config.DB_NAME = cast.ToString(coalesce("DB_NAME", "garden_management_service"))
 	config.DB_PASSWORD = cast.ToString(coalesce("DB_PASSWORD", "03212164"))
 
 	return config
